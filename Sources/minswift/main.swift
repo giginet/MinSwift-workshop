@@ -1,0 +1,3 @@
+import MinSwiftKit
+
+try! sayGreeting()
