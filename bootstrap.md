@@ -32,10 +32,10 @@ $ brew install llvm
 ## 4. プロジェクトのセットアップ
 
 ```console
-$ export PATH=$PATH:`brew --prefix`/Cellar/llvm/7.0.1/bin
+$ export PATH="$PATH:`brew --prefix llvm`/bin"
 $ which llvm-config
 /usr/local/Cellar/llvm/7.0.1/bin/llvm-config
-$ git clone https://github.com/giginet/MinSwift-workshop.git
+$ git clone git@github.com/giginet/MinSwift-workshop.git
 $ cd MinSwift-workshop
 $ ./bootstrap
 ```
