@@ -111,9 +111,9 @@ https://llvm.org/docs/tutorial/LangImpl04.html
 お次は関数呼び出しです。これもそれほど難しくありません。
 
 ```swift
-let function = module.function(named: "functionName")
+let function = module.function(named: "functionName")!
 let arguments: [IRValue] = []
-builder.buildCall(function, args: arguments, name: "calltmp")
+return builder.buildCall(function, args: arguments, name: "calltmp")
 ```
 
 関数を定義した際（次に実装します）に、Moduleに`Function`を登録します。
