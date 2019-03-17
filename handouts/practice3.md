@@ -47,7 +47,15 @@ func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node)
 
 これで逆ポーランド記法で言うところの、`a b c * +`という計算順序にパースすることができます。
 
-## 3-1〜3.4. いろいろな演算
+## 3-1. オペレータのパース
+
+まず手始めにオペレータのトークンからオペレータを生成します。
+
+`extractBinaryOperator`を実装してみてください。注意点として、今回は未知のトークンが来た場合に`Operator?`として返す点です。
+
+後の実装では、オペレータが見つからなかった場合は、優先度-1として扱っています。その方が都合が良いのです。
+
+## 3-2〜3-5. いろいろな演算
 
 わかりましたか？私はすぐにわかりませんでした。
 
@@ -57,7 +65,7 @@ func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node)
 
 `()`の扱い方なんて習ってないよ！大丈夫、私が実装しておきました。
 
-気になる方は`parseParen`を見てみましょう。`(`(`leftParen`)が現れたら、`parseExpression`で中身を取り出し、最後に`)``rightParen`で終了することを確認しています。
+気になる方は`parseParen`を見てみましょう。`(`(`leftParen`)が現れたら、`parseExpression`で中身を取り出し、最後に`)`(`rightParen`)で終了することを確認しています。
 
 今後、再帰的に`parseExpression`を呼んで、式を取り出す実装は頻繁に登場します。悩んだら思い出してみてください。
 
