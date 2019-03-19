@@ -209,3 +209,14 @@ $ swift run minswift Examples/calculation.swift 2> main.ll
 $ lli main.ll; echo $?
 42
 ```
+
+あるいは簡単な再帰関数を書くこともできるかもしれません。とはいえ、条件分岐が書けないので止められませんが。
+
+```swift
+func increment(n: Double) {
+    return increment(n + 1)
+}
+increment(10)
+```
+
+大丈夫、捕まったりしませんよ！
