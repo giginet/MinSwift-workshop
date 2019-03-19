@@ -106,24 +106,9 @@ retval double 4.200000e+01
 この最適化の仕組みが気になる人は、Kaleidoscopeの第4章を見てみてください。
 https://llvm.org/docs/tutorial/LangImpl04.html
 
-## 6-4. CallExpressionNodeの生成
+## 6-4. FunctionNodeの生成
 
-お次は関数呼び出しです。これもそれほど難しくありません。
-
-```swift
-let function = module.function(named: "functionName")!
-let arguments: [IRValue] = []
-return builder.buildCall(function, args: arguments, name: "calltmp")
-```
-
-関数を定義した際（次に実装します）に、Moduleに`Function`を登録します。
-ここでは呼び出す関数を名前から取り出しています。当然宣言されていない関数を取り出すことはできないので、戻り値は`LLVM.Function?`です。
-
-引数は`IRValue`の配列を受け取ります。もう説明はいりませんよね。
-
-## 6-5. FunctionNodeの生成
-
-最後に関数定義の生成です。少し複雑に見えますが、単純です。
+お次は関数定義の生成です。少し複雑に見えますが、単純です。
 
 `doSomething(Double) -> Double`という関数からIRを生成してみましょう。
 
@@ -147,7 +132,7 @@ return functionBody
 ```
 
 まずは`FunctionType`の生成です。ここでは`(Double) -> Double`を表しています。
-そこから`Function`を追加しています。6-4で取り出していたのはこれです。
+そこから`Function`を追加しています。この値は、関数呼び出しを実装するときに使います。
 
 `BasicBlock`はいわばネスト構造です。
 6-2で登場した`namedValues`が再登場します。ここで引数に渡された変数を全て`namedValues`に登録しています。
@@ -163,6 +148,21 @@ define double @doSomething(double) {
     ret double %addtmp
 }
 ```
+
+## 6-5. CallExpressionNodeの生成
+
+最後に関数呼び出しです。これもそれほど難しくありません。
+
+```swift
+let function = module.function(named: "functionName")!
+let arguments: [IRValue] = []
+return builder.buildCall(function, args: arguments, name: "calltmp")
+```
+
+関数を定義した際に、Moduleに`Function`を登録しました。
+ここでは呼び出す関数を名前から取り出しています。当然宣言されていない関数を取り出すことはできないので、戻り値は`LLVM.Function?`です。
+
+引数は`IRValue`の配列を受け取ります。もう説明はいりませんよね。
 
 ## 6-6. まとめ
 
