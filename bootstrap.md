@@ -25,14 +25,30 @@ InstalledDir: /Applications/Xcode-10.1.app/Contents/Developer/Toolchains/XcodeDe
 
 ## 3. LLVMのインストール
 
-```
+```console
 $ brew install llvm
+```
+
+LLVMをインストールしたらパスを通してください。以後、パスが通ってることを前提としています。
+
+```console
+$ export PATH="$PATH:`brew --prefix llvm`/bin"
+```
+
+インストールされたLLVMのバージョンが7.0.1であることを確認してください。
+
+```console
+$ lli --version
+LLVM (http://llvm.org/):
+  LLVM version 7.0.1
+  Optimized build.
+  Default target: x86_64-apple-darwin18.2.0
+  Host CPU: skylake-avx512
 ```
 
 ## 4. プロジェクトのセットアップ
 
 ```console
-$ export PATH="$PATH:`brew --prefix llvm`/bin"
 $ which llvm-config
 /usr/local/Cellar/llvm/7.0.1/bin/llvm-config
 $ git clone https://github.com/giginet/MinSwift-workshop.git
@@ -62,3 +78,12 @@ $ open MinSwift.xcodeproj
 
 Cmd + Rでビルドが通ることを確認してください。
 
+## 7. graphvizのインストール
+
+プロジェクトのビルドには用いませんが、ワークショップの中で生成したLLVM IRの可視化に利用します。
+
+```console
+$ brew install graphviz
+$ which dot
+/usr/local/bin/dot
+```
