@@ -72,6 +72,8 @@ $ dot -Tpng cfg.ifelse.dot -o ifelse.png
 $ open ifelse.png
 ```
 
+TBD
+
 ### Generatorの実装
 
 今説明した知識を元に、IRを生成してみましょう！
@@ -118,6 +120,8 @@ merge:                                            ; preds = %else, %then
   ret double %phi
 }
 ```
+
+![](ifelse.png)
 
 ```swift
 let condition: IRValue
