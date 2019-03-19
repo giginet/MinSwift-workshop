@@ -55,6 +55,22 @@ double 1.420000e+02
 
 MinSwiftでは今のところ`Double`型しかサポートしていません。
 
+### FileCheck
+
+ところで、テストケース中に記述されているコメントが気になったでしょうか。
+
+これはFileCheckというLLVMが提供するテスト用ユーティリティを用いて、ソースコード中のコメントでマッチャーを記述しています。
+http://www.hogbergs.org/localdoc/llvm37/llvm/html/CommandGuide/FileCheck.html
+
+
+LLVMはIRの生成結果を標準エラーとして出力します。そのため、出力の比較にはこのような仕組みが必要になるのです。
+
+
+Swiftの世界からすると不思議な挙動に感じるかもしれませんが、LLVMSwiftのテストにも使用されています。
+https://github.com/llvm-swift/LLVMSwift/blob/master/Tests/LLVMTests/IRBuilderSpec.swift
+
+コメントを変更するとテスト結果が変わることが確認できると思います。
+
 ## 6-2. VariableNodeの生成
 
 変数型を実装してみましょう。
