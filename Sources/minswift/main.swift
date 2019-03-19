@@ -1,3 +1,13 @@
 import MinSwiftKit
+import Foundation
 
-try! sayGreeting()
+if CommandLine.arguments.count == 1 {
+    try! sayGreeting()
+} else {
+    let file = CommandLine.arguments[1]
+    let url = URL(fileURLWithPath: file)
+
+    let engine = Engine()
+    try! engine.load(from: url)
+    engine.dump()
+}
