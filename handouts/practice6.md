@@ -204,7 +204,7 @@ try! engine.run("calculateAnswer", of: FunctionType.self) { calculateAnswer in
 実際に正しく動いているか試してみたい場合は、以下のように実行できます。
 
 ```console
-$ swift build
+$ ./build
 $ swift run minswift Examples/calculation.swift 2> main.ll
 $ lli main.ll; echo $?
 42
