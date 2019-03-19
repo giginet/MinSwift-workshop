@@ -4,6 +4,7 @@ import SwiftSyntax
 @testable import MinSwiftKit
 
 class Practice2: ParserTestCase {
+    // 2-1
     func testParseInteger() {
         load("42") // integerLiteral("42")
 
@@ -14,6 +15,7 @@ class Practice2: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 2-2
     func testParseFloatingNumber() {
         load("42.195") // floatingLiteral("42.195")
 
@@ -24,6 +26,7 @@ class Practice2: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 2-3
     func testIdentifier() {
         load("a") // identifier("a")
 

@@ -7,6 +7,7 @@ final class Practice8: XCTestCase {
 
     // Don't worry, you already have everything 😈
 
+    // 8-1
     func testCube() {
         let source = """
 // WRITE YOUR OWN CODE
@@ -19,6 +20,7 @@ final class Practice8: XCTestCase {
         }
     }
 
+    // 8-2
     func testFactorial() {
         let source = """
 // WRITE YOUR OWN CODE
@@ -32,6 +34,7 @@ final class Practice8: XCTestCase {
         }
     }
 
+    // 8-3
     func testFibonacci() {
         let source = """
 // WRITE YOUR OWN CODE

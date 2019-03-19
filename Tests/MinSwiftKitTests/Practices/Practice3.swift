@@ -4,6 +4,7 @@ import SwiftSyntax
 @testable import MinSwiftKit
 
 class Practice3: ParserTestCase {
+    // 3-1
     func testExtractBinaryOperator() {
         load("1 + 2")
         parser.seek()
@@ -13,6 +14,7 @@ class Practice3: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .spacedBinaryOperator("+"))
     }
 
+    // 3-2
     func testSimpleExpression() {
         load("10 + 20")
         // lhs: 10
@@ -31,6 +33,7 @@ class Practice3: ParserTestCase {
         XCTAssertEqual(rhs.value, 20)
     }
 
+    // 3-3
     func testExpressionWithMultipleOperators() {
         load("10 + 20 * 30")
         // lhs: 10
@@ -55,6 +58,7 @@ class Practice3: ParserTestCase {
         XCTAssertEqual((rhs.rhs as! NumberNode).value, 30)
     }
 
+    // 3-4
     func testExpressionWithParen() {
         load("(10 + 20) * 30")
         // lhs:
@@ -79,6 +83,7 @@ class Practice3: ParserTestCase {
         XCTAssertEqual(rhs.value, 30)
     }
 
+    // 3-5
     func testExpressionWithVariable() {
         load("a - b")
         // lhs: a
@@ -97,6 +102,7 @@ class Practice3: ParserTestCase {
         XCTAssertEqual(rhs.identifier, "b")
     }
 
+    // 3-6
     func testComplexExpression() {
         load("(a - 20) * 10 / b")
         // please parse on yourself because I'm tired 😛

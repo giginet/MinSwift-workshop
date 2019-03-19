@@ -17,6 +17,7 @@ func sayHello() {
         parser.visit(sourceFile)
     }
 
+    // 1-1
     func testToken() {
         prepare()
 
@@ -35,6 +36,7 @@ func sayHello() {
             .eof])
     }
 
+    // 1-2
     func testSeek() {
         prepare()
 
@@ -50,6 +52,7 @@ func sayHello() {
         // skip the rest
     }
 
+    // 1-3
     func testPeek() {
         prepare()
 

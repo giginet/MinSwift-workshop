@@ -4,6 +4,7 @@ import SwiftSyntax
 @testable import MinSwiftKit
 
 class Practice5: ParserTestCase {
+    // 5-1
     func testFunctionCalling() {
         load("doSomething()") // identifier, leftParen, rightParen
 
@@ -16,6 +17,7 @@ class Practice5: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 5-2
     func testFunctionCallingWithLabel() {
         load("doSomething(a: 10 + 20)") // identifier, leftParen, identifier, colon, <some expression> , rightParen
 
@@ -31,6 +33,7 @@ class Practice5: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 5-3
     func testFunctionCallingWithLabels() {
         load("doSomething(a: 10 + 20, b: x)")
         // identifier, leftParen,

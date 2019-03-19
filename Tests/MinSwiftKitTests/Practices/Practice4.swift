@@ -4,6 +4,7 @@ import SwiftSyntax
 @testable import MinSwiftKit
 
 class Practice4: ParserTestCase {
+    // 4-1
     func testParsingArgument() {
         load("a: Double")
 
@@ -13,6 +14,7 @@ class Practice4: ParserTestCase {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 4-2
     func testSimpleFunctionDefinition() {
         load("""
 func calculate() -> Double {
@@ -44,6 +46,7 @@ func calculate() -> Double {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 4-3
     func testFunctionWithArgument() {
         load("""
 func square(a: Double) -> Double {
@@ -63,6 +66,7 @@ func square(a: Double) -> Double {
         XCTAssertEqual(parser.currentToken.tokenKind, .eof)
     }
 
+    // 4-4
     func testFunctionWithArguments() {
         load("""
 func calculate(a: Double, b: Double) -> Double {
