@@ -1,0 +1,13 @@
+excluded:
+  - .build
+  - Examples
+disabled_rules:
+  - line_length
+  - identifier_name
+  - force_try
+  - function_body_length
+  - type_body_length
+  - control_statement
+  - file_length
+  - cyclomatic_complexity
+  - todo
