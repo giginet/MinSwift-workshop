@@ -1,7 +1,10 @@
 import XCTest
 
-import MinSwiftTests
+@testable import MinSwiftKitTests
 
 var tests = [XCTestCaseEntry]()
-tests += MinSwiftTests.allTests()
+tests += [
+  // Add tests manually
+  testCase([("testToken", Practice1.testToken)]),
+]
 XCTMain(tests)
