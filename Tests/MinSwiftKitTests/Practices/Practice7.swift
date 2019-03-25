@@ -30,9 +30,9 @@ final class Practice7: ParserTestCase {
     func testParsingIfElse() {
         load("""
     if a < 10 {
-        print(a)
+        foo(a: a)
     } else {
-        print(a + 10)
+        foo(a: a + 10)
     }
     """)
 
@@ -46,11 +46,11 @@ final class Practice7: ParserTestCase {
 
         let thenBlock = ifNode.then
         XCTAssertTrue(thenBlock is CallExpressionNode)
-        XCTAssertEqual((thenBlock as! CallExpressionNode).callee, "print")
+        XCTAssertEqual((thenBlock as! CallExpressionNode).callee, "foo")
 
         let elseBlock = ifNode.else
         XCTAssertTrue(elseBlock is CallExpressionNode)
-        XCTAssertEqual((elseBlock as! CallExpressionNode).callee, "print")
+        XCTAssertEqual((elseBlock as! CallExpressionNode).callee, "foo")
     }
 
     // 7-3
