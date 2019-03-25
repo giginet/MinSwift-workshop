@@ -37,16 +37,16 @@ func sayHello() {
     }
 
     // 1-2
-    func testSeek() {
+    func testRead() {
         prepare()
 
-        XCTAssertEqual(parser.seek().tokenKind, .funcKeyword)
+        XCTAssertEqual(parser.read().tokenKind, .funcKeyword)
         XCTAssertEqual(parser.currentToken.tokenKind, .funcKeyword)
 
-        XCTAssertEqual(parser.seek().tokenKind, .identifier("sayHello")) // eat func
+        XCTAssertEqual(parser.read().tokenKind, .identifier("sayHello")) // eat func
         XCTAssertEqual(parser.currentToken.tokenKind, .identifier("sayHello"))
 
-        XCTAssertEqual(parser.seek().tokenKind, .leftParen) // eat sayHello
+        XCTAssertEqual(parser.read().tokenKind, .leftParen) // eat sayHello
         XCTAssertEqual(parser.currentToken.tokenKind, .leftParen)
 
         // skip the rest
@@ -56,7 +56,7 @@ func sayHello() {
     func testPeek() {
         prepare()
 
-        XCTAssertEqual(parser.seek().tokenKind, .funcKeyword)
+        XCTAssertEqual(parser.read().tokenKind, .funcKeyword)
         XCTAssertEqual(parser.peek().tokenKind, .identifier("sayHello"))
         XCTAssertEqual(parser.peek(1).tokenKind, .leftParen)
         XCTAssertEqual(parser.peek(2).tokenKind, .rightParen)

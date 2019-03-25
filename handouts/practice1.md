@@ -47,18 +47,18 @@ func sayHello() {
 
 手始めに最初のテストケースを通してみましょう。
 
-## 1-2. `seek()`の実装
+## 1-2. `read()`の実装
 
 多くのパーサーは状態としてカーソルを持っており、トークンを1つずつ頭から読んでいきます。
-先頭のトークンを読んで返却するメソッド、`seek()`を作りましょう。
+先頭のトークンを読んで返却するメソッド、`read()`を作りましょう。
 
 ```swift
 // currentToken = nil
-seek()
+read()
 // currentToken = funcKeyword
-seek()
+read()
 // currentToken = .identifier("sayHello")
-seek()
+read()
 
 // ...
 ```
@@ -68,7 +68,7 @@ seek()
 `peek()`は現在のカーソル位置を動かさずに、先のトークンを知るためのメソッドです。
 
 ```swift
-seek()
+read()
 // currentToken = funcKeyword
 peek() // .identifier("sayHello")
 peek(1) // .leftParen

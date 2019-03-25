@@ -7,7 +7,7 @@ class Practice3: ParserTestCase {
     // 3-1
     func testExtractBinaryOperator() {
         load("1 + 2")
-        parser.seek()
+        parser.read()
 
         let op = parser.extractBinaryOperator()
         XCTAssertEqual(op, .addition)

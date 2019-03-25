@@ -11,6 +11,6 @@ class ParserTestCase: XCTestCase {
         defer { removeTempoaryFile(at: url) }
         let sourceFile = try! SyntaxTreeParser.parse(url)
         parser.visit(sourceFile)
-        parser.seek()
+        parser.read()
     }
 }

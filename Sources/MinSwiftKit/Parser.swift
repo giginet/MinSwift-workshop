@@ -24,7 +24,7 @@ class Parser: SyntaxVisitor {
     }
 
     @discardableResult
-    func seek() -> TokenSyntax {
+    func read() -> TokenSyntax {
         fatalError("Not Implemented")
     }
 
@@ -42,7 +42,7 @@ class Parser: SyntaxVisitor {
         guard let value = extractNumberLiteral(from: currentToken) else {
             return nil
         }
-        seek() // eat literal
+        read() // eat literal
         return NumberNode(value: value)
     }
 
@@ -67,7 +67,7 @@ class Parser: SyntaxVisitor {
                 return currentLHS
             }
 
-            seek() // eat binary operator
+            read() // eat binary operator
             var rhs = parsePrimary()
             if rhs == nil {
                 return nil
@@ -114,7 +114,7 @@ class Parser: SyntaxVisitor {
 
     func parse() -> [Node] {
         var nodes: [Node] = []
-        seek()
+        read()
         while true {
             switch currentToken.tokenKind {
             case .eof:
@@ -127,7 +127,7 @@ class Parser: SyntaxVisitor {
                     nodes.append(node)
                     break
                 } else {
-                    seek()
+                    read()
                 }
             }
         }
@@ -167,7 +167,7 @@ class Parser: SyntaxVisitor {
         guard case .returnKeyword = currentToken.tokenKind else {
             fatalError("returnKeyword is expected but received \(currentToken.tokenKind)")
         }
-        seek() // eat return
+        read() // eat return
         if let expression = parseExpression() {
             return ReturnNode(body: expression)
         } else {
@@ -177,7 +177,7 @@ class Parser: SyntaxVisitor {
     }
 
     private func parseParen() -> Node? {
-        seek() // eat (
+        read() // eat (
         guard let v = parseExpression() else {
             return nil
         }
@@ -185,7 +185,7 @@ class Parser: SyntaxVisitor {
         guard case .rightParen = currentToken.tokenKind else {
                 fatalError("expected ')'")
         }
-        seek() // eat )
+        read() // eat )
 
         return v
     }
