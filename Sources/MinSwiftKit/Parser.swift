@@ -62,7 +62,7 @@ class Parser: SyntaxVisitor {
             let binaryOperator = extractBinaryOperator()
             let operatorPrecedence = binaryOperator?.precedence ?? -1
 
-            // Compare beetween nextOperator's precedences and current one
+            // Compare between operatorPrecedence and expressionPrecedence
             if true { // TODO
                 return currentLHS
             }
