@@ -26,13 +26,13 @@ InstalledDir: /Applications/Xcode-10.1.app/Contents/Developer/Toolchains/XcodeDe
 ## 3. LLVMのインストール
 
 ```console
-$ brew install llvm
+$ brew install llvm@7
 ```
 
 LLVMをインストールしたらパスを通してください。以後、パスが通ってることを前提としています。
 
 ```console
-$ export PATH="$PATH:`brew --prefix llvm`/bin"
+$ export PATH="$PATH:`brew --prefix llvm@7`/bin"
 ```
 
 インストールされたLLVMのバージョンが7.0.1であることを確認してください。
