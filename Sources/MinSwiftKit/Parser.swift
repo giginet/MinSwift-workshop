@@ -52,14 +52,14 @@ class Parser: SyntaxVisitor {
 
     // MARK: Practice 3
 
-    func extractBinaryOperator() -> BinaryExpressionNode.Operator? {
+    func extractBinaryOperator(from token: TokenSyntax) -> BinaryExpressionNode.Operator? {
         fatalError("Not Implemented")
     }
 
     private func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node?) -> Node? {
         var currentLHS: Node? = lhs
         while true {
-            let binaryOperator = extractBinaryOperator()
+            let binaryOperator = extractBinaryOperator(from: currentToken!)
             let operatorPrecedence = binaryOperator?.precedence ?? -1
 
             // Compare between operatorPrecedence and expressionPrecedence
@@ -75,7 +75,7 @@ class Parser: SyntaxVisitor {
 
             // If binOperator binds less tightly with RHS than the operator after RHS, let
             // the pending operator take RHS as its LHS.
-            let nextPrecedence = extractBinaryOperator()?.precedence ?? -1
+            let nextPrecedence = extractBinaryOperator(from: currentToken!)?.precedence ?? -1
             if true { // TODO
                 // Search next RHS from currentRHS
                 // next precedence will be `operatorPrecedence + 1`

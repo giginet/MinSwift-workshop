@@ -9,7 +9,7 @@ class Practice3: ParserTestCase {
         load("1 + 2")
         parser.read()
 
-        let op = parser.extractBinaryOperator()
+        let op = parser.extractBinaryOperator(from: parser.currentToken!)
         XCTAssertEqual(op, .addition)
         XCTAssertEqual(parser.currentToken.tokenKind, .spacedBinaryOperator("+"))
     }
