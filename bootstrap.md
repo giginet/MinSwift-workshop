@@ -76,7 +76,9 @@ Welcome to the Underground 😈
 $ open MinSwift.xcodeproj
 ```
 
-Cmd + Rでビルドが通ることを確認してください。
+ビルドターゲットを`minswift`に変更してCmd + Rでビルドが通ることを確認してください。
+
+コンソールに5と同様の出力がされたら成功です。
 
 ## 7. graphvizのインストール
 
