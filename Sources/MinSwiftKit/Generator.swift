@@ -2,7 +2,7 @@ import Foundation
 import LLVM
 
 @discardableResult
-func generate(from node: Node, with context: BuildContext) -> IRValue {
+func generateIRValue(from node: Node, with context: BuildContext) -> IRValue {
     switch node {
     case let numberNode as NumberNode:
         return Generator<NumberNode>(node: numberNode).generate(with: context)
@@ -82,7 +82,7 @@ extension Generator where NodeType == IfElseNode {
 extension Generator where NodeType == ReturnNode {
     func generate(with context: BuildContext) -> IRValue {
         if let body = node.body {
-            let returnValue = MinSwiftKit.generate(from: body, with: context)
+            let returnValue = MinSwiftKit.generateIRValue(from: body, with: context)
             return returnValue
         } else {
             return VoidType().null()

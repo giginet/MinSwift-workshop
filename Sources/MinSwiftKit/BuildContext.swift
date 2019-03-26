@@ -17,6 +17,6 @@ class BuildContext {
 
 func build(_ nodes: [Node], context: BuildContext) {
     for node in nodes {
-        generate(from: node, with: context)
+        generateIRValue(from: node, with: context)
     }
 }

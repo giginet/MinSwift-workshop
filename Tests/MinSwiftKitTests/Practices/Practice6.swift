@@ -9,7 +9,7 @@ class Practice6: ParserTestCase {
     func testGenerateNumberNode() {
         let numberNode = NumberNode(value: 42)
         let context = BuildContext()
-        let generated = generate(from: numberNode, with: context)
+        let generated = generateIRValue(from: numberNode, with: context)
         XCTAssertTrue(generated.isAConstantFP)
         XCTAssertEqual(generated.kind, .constantFloat)
         XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["NumberNode"]) {
@@ -22,10 +22,10 @@ class Practice6: ParserTestCase {
     func testVariableNode() {
         let context = BuildContext()
         let argumentNode = NumberNode(value: 42)
-        context.namedValues["a"] = generate(from: argumentNode, with: context)
+        context.namedValues["a"] = generateIRValue(from: argumentNode, with: context)
 
         let variableNode = VariableNode(identifier: "a") // inject
-        let generated = generate(from: variableNode, with: context)
+        let generated = generateIRValue(from: variableNode, with: context)
         XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["VariableNode"]) {
             // VariableNode: double 4.200000e+01
             generated.dump()
@@ -40,7 +40,7 @@ class Practice6: ParserTestCase {
             let node = BinaryExpressionNode(.addition,
                                             lhs: NumberNode(value: 21),
                                             rhs: NumberNode(value: 2))
-            let generated = generate(from: node, with: context)
+            let generated = generateIRValue(from: node, with: context)
             XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["AdditionNode"]) {
                 // AdditionNode: double 2.300000e+01
                 generated.dump()
@@ -53,7 +53,7 @@ class Practice6: ParserTestCase {
             let node = BinaryExpressionNode(.subtraction,
                                             lhs: NumberNode(value: 21),
                                             rhs: NumberNode(value: 2))
-            let generated = generate(from: node, with: context)
+            let generated = generateIRValue(from: node, with: context)
             XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["SubtractionNode"]) {
                 // SubtractionNode: double 1.900000e+01
                 generated.dump()
@@ -66,7 +66,7 @@ class Practice6: ParserTestCase {
             let additionNode = BinaryExpressionNode(.multication,
                                                     lhs: NumberNode(value: 21),
                                                     rhs: NumberNode(value: 2))
-            let generated = generate(from: additionNode, with: context)
+            let generated = generateIRValue(from: additionNode, with: context)
             XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["MulticationNode"]) {
                 // MulticationNode: double 4.200000e+01
                 generated.dump()
@@ -79,7 +79,7 @@ class Practice6: ParserTestCase {
             let node = BinaryExpressionNode(.division,
                                             lhs: NumberNode(value: 21),
                                             rhs: NumberNode(value: 2))
-            let generated = generate(from: node, with: context)
+            let generated = generateIRValue(from: node, with: context)
             XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["DivisionNode"]) {
                 // DivisionNode: double 1.050000e+01
                 generated.dump()
@@ -119,8 +119,8 @@ class Practice6: ParserTestCase {
                                         body: ReturnNode(body: VariableNode(identifier: "a")))
         let call = CallExpressionNode(callee: "main",
                                       arguments: [.init(label: nil, value: NumberNode(value: 42))])
-        generate(from: functionNode, with: context)
-        let generated = generate(from: call, with: context)
+        generateIRValue(from: functionNode, with: context)
+        let generated = generateIRValue(from: call, with: context)
         XCTAssertTrue(fileCheckOutput(of: .stderr, withPrefixes: ["CallExpressionNode"]) {
             // CallExpressionNode: %calltmp = call double @main(double 4.200000e+01)
             generated.dump()

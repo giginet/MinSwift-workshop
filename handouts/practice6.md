@@ -20,10 +20,12 @@ let context = BuildContext()
 context.builder.module
 ```
 
-`MinSwiftKit.generate` は`Node`と`BuildContext`を受け取って`LLVM.IRValue`を取り出すトップレベルの関数です。
+`generateIRValue` は`Node`と`BuildContext`を受け取って`LLVM.IRValue`を取り出すトップレベルの関数です。
+
+この中では、渡ってきた`node`の型を見て、`IRValue`に変換しています。任意の`Node`を`IRValue`に変換したいときはこれを使います。
 
 ```swift
-let value: IRValue = MinSwiftKit.generate(from: node, with: context)
+let value: IRValue = generateIRValue(from: node, with: context)
 ```
 
 ここから`Node`の型ごとに`IRValue`を生成していきます。
