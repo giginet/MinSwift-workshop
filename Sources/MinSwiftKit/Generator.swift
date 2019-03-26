@@ -49,13 +49,35 @@ extension Generator where NodeType == NumberNode {
     }
 }
 
-//extension Generator where NodeType == VariableNode {
-//    func generate(with context: BuildContext) -> IRValue {
-//        fatalError("Not Implemented")
-//    }
-//}
+extension Generator where NodeType == VariableNode {
+    func generate(with context: BuildContext) -> IRValue {
+        fatalError("Not Implemented")
+    }
+}
 
-// ...
+extension Generator where NodeType == BinaryExpressionNode {
+    func generate(with context: BuildContext) -> IRValue {
+        fatalError("Not Implemented")
+    }
+}
+
+extension Generator where NodeType == FunctionNode {
+    func generate(with context: BuildContext) -> IRValue {
+        fatalError("Not Implemented")
+    }
+}
+
+extension Generator where NodeType == CallExpressionNode {
+    func generate(with context: BuildContext) -> IRValue {
+        fatalError("Not Implemented")
+    }
+}
+
+extension Generator where NodeType == IfElseNode {
+    func generate(with context: BuildContext) -> IRValue {
+        fatalError("Not Implemented")
+    }
+}
 
 extension Generator where NodeType == ReturnNode {
     func generate(with context: BuildContext) -> IRValue {

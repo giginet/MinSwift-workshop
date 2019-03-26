@@ -1,17 +1,6 @@
 import Foundation
 import SwiftSyntax
 
-private extension BinaryExpressionNode.Operator {
-    var precedence: Int {
-        switch self {
-        case .addition, .subtraction: return 20
-        case .multication, .division: return 40
-        case .lessThan:
-            fatalError("Not Implemented")
-        }
-    }
-}
-
 class Parser: SyntaxVisitor {
     private(set) var tokens: [TokenSyntax] = []
     private var index = 0
@@ -197,5 +186,16 @@ class Parser: SyntaxVisitor {
             return anonymousPrototype
         }
         return nil
+    }
+}
+
+private extension BinaryExpressionNode.Operator {
+    var precedence: Int {
+        switch self {
+        case .addition, .subtraction: return 20
+        case .multication, .division: return 40
+        case .lessThan:
+            fatalError("Not Implemented")
+        }
     }
 }

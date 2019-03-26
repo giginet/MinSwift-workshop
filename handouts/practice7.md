@@ -124,7 +124,7 @@ merge:                                            ; preds = %else, %then
 ![](ifelse.png)
 
 ```swift
-let condition: IRValue
+let condition: IRValue = XXX
 
 let boolean = context.builder.buildFCmp(condition,
                                         FloatType.double.constant(0.0),
@@ -142,12 +142,12 @@ let mergeBasicBlock = function.appendBasicBlock(named: "merge")
 context.builder.buildCondBr(condition: boolean, then: thenBasicBlock, else: elseBasicBlock)
 context.builder.positionAtEnd(of: thenBasicBlock)
 
-let thenVal: IRValue
+let thenVal: IRValue = XXX
 context.builder.buildBr(mergeBasicBlock)
 
 context.builder.positionAtEnd(of: elseBasicBlock)
 
-let elseVal: IRValue
+let elseVal: IRValue = XXX
 context.builder.buildBr(mergeBasicBlock)
 
 context.builder.positionAtEnd(of: mergeBasicBlock)
