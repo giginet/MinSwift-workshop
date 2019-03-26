@@ -66,10 +66,12 @@ a // VariableNode(identifier: "a")
 今のところ、何か`tokenKind`が`.identifier`のトークンが現れたら変数呼び出しとして扱うことにしてしまいます。
 `parseIdentifierExpression`を実装してみましょう。
 
-悩ましいことに、SwiftSyntaxの世界では`identifier`は至る所に登場します。
-変数、関数宣言、関数呼び出し、引数、ラベル、型など、ぜーんぶ`identifier`です
+悩ましいことに、SwiftSyntaxの世界では`.identifier`は至る所に登場します。
+変数呼び出し、関数宣言における関数名、関数呼び出し、引数、ラベル、型など、ぜーんぶ`.identifier`です。
 
-そのため、`parseIdentifierExpression`は、今後の実装が進むごとに変更が発生します。
+今後の実装では、この`identifier`がなんなのかを前後の文脈から判断する必要があります。
+そのため、`parseIdentifierExpression`も、今後の実装が進むごとに変更が発生します。
+
 以前までのテストケースを壊さないようにしましょう。
 
 ## まとめ
