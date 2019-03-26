@@ -38,15 +38,15 @@ class Parser: SyntaxVisitor {
         fatalError("Not Implemented")
     }
 
-    func parseNumber() -> Node? {
+    func parseNumber() -> Node {
         guard let value = extractNumberLiteral(from: currentToken) else {
-            return nil
+            fatalError("any number is expected")
         }
         read() // eat literal
         return NumberNode(value: value)
     }
 
-    func parseIdentifierExpression() -> Node? {
+    func parseIdentifierExpression() -> Node {
         fatalError("Not Implemented")
     }
 
@@ -163,7 +163,7 @@ class Parser: SyntaxVisitor {
         return parseBinaryOperatorRHS(expressionPrecedence: 0, lhs: lhs)
     }
 
-    private func parseReturn() -> Node? {
+    private func parseReturn() -> Node {
         guard case .returnKeyword = currentToken.tokenKind else {
             fatalError("returnKeyword is expected but received \(currentToken.tokenKind)")
         }

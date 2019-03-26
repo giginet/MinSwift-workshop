@@ -98,13 +98,17 @@ return variable
 context.builder.buildAdd(lhs, rhs, name: "addtmp")
 ```
 
-これは以下のようなIRを生成します。最後の引数は生成されるIRの変数名に相当します。気にする必要はありません。
+これは以下のようなIRを生成します。
+最後の引数は生成されるIRの変数名に相当し、この引数に指定した変数名としてLLVM IRに出力されます。
 
 ```llvm
 %addtmp = fadd double %lhs %rhs
 ```
 
 同様に`buildSub`, `buildMul`, `buildDiv`があります。
+`name`の値は、テストケースを良く見て、生成されるIRが一致するように正しく設定してみましょう。
+
+`lessThan`については、次のPractice 7で実装しますので、今は`fatalError`などで仮実装にしておきましょう。
 
 ここで面白いのは、定数値同士の加算を行ったときにコンパイラが最適化を施してくれることです。
 
@@ -140,7 +144,7 @@ context.builder.positionAtEnd(of: entryBasicBlock)
 
 // Register arguments to namedValues
 context.namedValues.removeAll()
-context.namedValues["a"] = function.parameters[0]
+context.namedValues["myVariable"] = function.parameters[0]
 
 let functionBody: IRValue
 context.builder.buildRet(functionBody)
@@ -148,6 +152,12 @@ return functionBody
 ```
 
 まずは`FunctionType`の生成です。ここでは`(Double) -> Double`を表しています。
+
+`FunctionType`には、引数の型の配列と、戻り値の型をそれぞれ`IRType`で渡します。
+繰り返しになりますが、MinSwiftでは`Double`しか考慮していないため、`FloatType.double`を使います。
+`argumentTypes`は、サンプルでは1つ固定なので、`FunctionNode`を見て、引数の数にあうように設定しましょう。
+
+
 そこから`Function`を追加しています。この値は、関数呼び出しを実装するときに使います。
 
 `BasicBlock`はいわばネスト構造です。
@@ -172,7 +182,7 @@ define double @doSomething(double) {
 ```swift
 let function = module.function(named: "functionName")!
 let arguments: [IRValue] = []
-return builder.buildCall(function, args: arguments, name: "calltmp")
+return context.builder.buildCall(function, args: arguments, name: "calltmp")
 ```
 
 関数を定義した際に、Moduleに`Function`を登録しました。
