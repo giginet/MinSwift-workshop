@@ -56,6 +56,8 @@ $ cd MinSwift-workshop
 $ ./bootstrap
 ```
 
+この操作で`MinSwift.xcodeproj`が自動生成されます。
+
 ## 5. CLIからのビルド
 
 ```console
