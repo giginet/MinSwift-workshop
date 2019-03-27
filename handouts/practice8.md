@@ -15,7 +15,7 @@
 
 ```swift
 $ ./build
-$ ./run minswift Examples/fib.swift 2> fib.ll
+$ ./run Examples/fib.swift 2> fib.ll
 $ llc fib.ll -filetype=obj
 $ clang++ Examples/fib.cpp fib.o -o fib
 $ ./fib
