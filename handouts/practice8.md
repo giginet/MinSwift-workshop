@@ -15,9 +15,14 @@
 
 ```swift
 $ ./build
-$ swift run minswift Examples/fib.swift 2> fib.ll
-$ lli fib.ll
+$ ./run minswift Examples/fib.swift 2> fib.ll
+$ llc fib.ll -filetype=obj
+$ clang++ Examples/fib.cpp fib.o -o fib
+$ ./fib
+55
 ```
+
+55ってなんだ！`Examples/fib.cpp`を見てみましょう。引数`10`を渡してフィボナッチ数列を計算しています。
 
 これで急に立方体の体積を計算したくなった場合や、衝動的にn番目のフィボナッチ数列を知りたくなった場合に役に立ちます。
 立派な実用言語と言えるでしょう。

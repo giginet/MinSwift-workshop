@@ -220,6 +220,7 @@ $ ./build
 $ ./run Examples/calculation.swift 2> calculation.ll
 $ llc calculation.ll -filetype=obj
 $ clang++ Examples/calculation.cpp calculation.o -o calculation
+$ ./calculation
 42
 ```
 

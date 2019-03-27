@@ -5,4 +5,3 @@ func fib(_ x: Double) -> Double {
         return fib(x - 1) + fib(x - 2)
     }
 }
-fib(10)
