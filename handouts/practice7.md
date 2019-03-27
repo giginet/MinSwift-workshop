@@ -100,23 +100,15 @@ x1 := y2
 
 ### brとφ関数
 
-```console
-$ opt -S ifelse.ll -dot-cfg
-$ dot -Tpng cfg.ifelse.dot -o ifelse.png
-$ open ifelse.png
-```
+制御フローを持たない関数であれば、簡単にSSAで記述することができます。
 
-TBD
+しかし、条件分岐を持つ場合には、一筋縄ではいきません。
 
-### Generatorの実装
+通るフローによって最終的にどの値が代入されるかわからず、事前に決定できないためです。　
 
-今説明した知識を元に、IRを生成してみましょう！
+そこで登場するのが、φ関数と呼ばれるものです。
 
-適宜省略してありますので、`Node`から必要な値を取得するようにしてください。
-
-例えば、以下のSwiftのコードからIRを生成してみます。
-（このコード自体には何の意味もありません。サンプルを作るときに困っただけです）
-
+例えば、以下のような条件分岐を持つコードを考えてみましょう。
 
 ```swift
 func main(a: Double) -> Double {
@@ -128,34 +120,51 @@ func main(a: Double) -> Double {
 }
 ```
 
-出力されるIRはこのようになります。
+これから、`swiftc`(本物の方ですよ！)を使ってIRを生成してみます。
 
 ```llvm
-; ModuleID = 'main'
-source_filename = "main"
-
-define double @main(double) {
+define hidden swiftcc double @"$S3phi4main1aS2d_tF"(double) #0 {
 entry:
-  %cmptmp = fcmp olt double %0, 1.000000e+01
-  %1 = sitofp i1 %cmptmp to double
-  %ifcond = fcmp one double %1, 0.000000e+00
-  %local = alloca double
-  br i1 %ifcond, label %then, label %else
+  %1 = fcmp olt double %0, 1.000000e+01
+  br i1 %1, label %2, label %3
 
-then:                                             ; preds = %entry
-  br label %merge
+; <label>:2:                                      ; preds = %entry
+  br label %4
 
-else:                                             ; preds = %entry
-  br label %merge
+; <label>:3:                                      ; preds = %entry
+  br label %4
 
-merge:                                            ; preds = %else, %then
-  %phi = phi double [ 1.420000e+02, %then ], [ 4.200000e+01, %else ]
-  store double %phi, double* %local
-  ret double %phi
+; <label>:4:                                      ; preds = %2, %3
+  %5 = phi double [ 1.420000e+02, %3 ], [ 4.200000e+01, %2 ]
+  ret double %5
 }
 ```
 
-![](ifelse.png)
+このIRの下の方に`phi`というのが登場します。
+
+戻り値`%5`には、どちらのブロックを通ったかによって、違う値（ここでは`42`と`142`）が格納されるので、その分岐を`phi`で表現しています。
+
+イメージが掴みづらいですか？
+LLVMにはこの分岐をグラフィカルに表示するユーティリティが付属しています。
+
+```console
+$ opt -S phi.ll -dot-cfg
+$ dot -Tpng cfg.\$S3phi4main1aS2d_tF.dot -o phi.png
+```
+
+（ここで利用している`dot`は、macOSではHomebrewのgraphvizパッケージに付属しています）
+
+![](phi.png)
+
+この単純なコードでは、それぞれの分岐、`br`では特に何もしていません。
+
+詳細な動きについては説明しきれませんでしたが、雰囲気は掴んでもらえましたか？
+
+### Generatorの実装
+
+今説明した知識を元に、IRを生成してみましょう！
+
+適宜省略してありますので、`XXX`の部分は`Node`から必要な値を取得するようにしてください。
 
 ```swift
 let condition: IRValue = XXX
@@ -193,3 +202,34 @@ context.builder.buildStore(phi, to: local)
 return phi
 ```
 
+phi関数は`buildPhi`で生成することができます。
+
+
+正しく実装できると、出力されるIRはこのようになります。
+
+```llvm
+; ModuleID = 'main'
+source_filename = "main"
+
+define double @main(double) {
+entry:
+  %cmptmp = fcmp olt double %0, 1.000000e+01
+  %1 = sitofp i1 %cmptmp to double
+  %ifcond = fcmp one double %1, 0.000000e+00
+  %local = alloca double
+  br i1 %ifcond, label %then, label %else
+
+then:                                             ; preds = %entry
+  br label %merge
+
+else:                                             ; preds = %entry
+  br label %merge
+
+merge:                                            ; preds = %else, %then
+  %phi = phi double [ 1.420000e+02, %then ], [ 4.200000e+01, %else ]
+  store double %phi, double* %local
+  ret double %phi
+}
+```
+
+我らのMinSwiftも`swiftc`とほぼ同じようなIRが生成できるようです！
