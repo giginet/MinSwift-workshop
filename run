@@ -1,0 +1,8 @@
+#!/usr/bin/env sh -x
+
+if ! [ -x "$(which llvm-config)" ]; then
+  echo 'Error: llvm-config is not found.' >&2
+  exit 1
+fi
+
+swift run -Xlinker -L`llvm-config --libdir` -Xcc -I`llvm-config --includedir` -Xlinker -lLLVM minswift $1
