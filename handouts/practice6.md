@@ -217,10 +217,24 @@ try! engine.run("calculateAnswer", of: FunctionType.self) { calculateAnswer in
 
 ```console
 $ ./build
-$ swift run minswift Examples/calculation.swift 2> main.ll
-$ lli main.ll; echo $?
+$ ./run Examples/calculation.swift 2> calculation.ll
+$ llc calculation.ll -filetype=obj
+$ clang++ Examples/calculation.cpp calculation.o -o calculation
 42
 ```
+
+今回コンパイルする`Examples/calculation.swift`を開いてみてください。`calc`関数が実装されています。
+
+```swift
+func calc() -> Double {
+    return 21 * 2
+}
+```
+
+`llc`を使うことでminswiftから生成したLLVM IRから実行オブジェクト`calc.o`が生成できます。LLVMを使ったコンパイルの成功です！
+
+最後に`calc.cpp`から生成した`calc.o`をリンクして実行しています。
+
 
 あるいは簡単な再帰関数を書くこともできるかもしれません。とはいえ、条件分岐が書けないので止められませんが。
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh -x
+#!/usr/bin/env sh
 
 if ! [ -x "$(which llvm-config)" ]; then
   echo 'Error: llvm-config is not found.' >&2

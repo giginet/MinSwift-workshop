@@ -1,1 +1,3 @@
-5 + 3
+func calc() -> Double {
+    return 21 * 2
+}
