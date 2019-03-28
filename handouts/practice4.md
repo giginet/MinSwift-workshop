@@ -6,9 +6,16 @@
 
 まず引数をパースするための簡単なユーティリティ、`parseFunctionDefinitionArgument`を実装してみましょう。
 
-`a: Double`という文字列から`FunctionNode.Argument`を生成します。
-このノードは、ラベルと変数名を持ちますが、ラベルを省略した場合は変数名と同じものとして扱います。
-ラベルの扱いは今回は省略しましょう。（物足りない方向けに応用課題を用意しておきました）
+この関数は、`a: Double`という文字列から`FunctionNode.Argument`を生成します。
+
+まずは`func foo(a: Double)`という関数定義の`a: Double`という部分をパースすることのみを考えましょう。
+
+`parseFunctionDefinitionArgument`は`identifier("a"), colon, .identifier("Double")`というトークン列を受け取って適切な引数を生成します。
+
+このノードは、ラベルと変数名を持ちますが、ラベルを省略した場合は変数名と同じものとして扱います。（この場合は両方とも`a`）
+
+Swiftでは、ラベルを省略したり（`_ a: Double`）、ラベルと変数名に別名を付けたりできます（`label variableName: Double`）
+今回はこのようなケースは省略しましょう。（物足りない方向けに応用課題を用意しておきました）
 
 ## 4-2〜4-4. 関数宣言のパース
 
