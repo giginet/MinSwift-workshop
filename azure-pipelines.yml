@@ -5,6 +5,7 @@ jobs:
   steps:
   - script: |
       brew install llvm
-      export SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a 
+      export SWIFT_VERSION=4.2.4-RELEASE 
       eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-      swift test -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib
+      which swift
+      swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib
