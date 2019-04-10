@@ -1,17 +1,10 @@
 jobs:
-- job: Linux
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - script: | 
-      export SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a 
-      eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-      SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a swift test
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
   steps:
   - script: |
+      brew install llvm
       export SWIFT_VERSION=5.0-DEVELOPMENT-SNAPSHOT-2019-02-28-a 
       eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
-      swift test
+      swift test -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib
