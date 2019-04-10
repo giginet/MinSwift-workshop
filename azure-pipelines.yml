@@ -8,4 +8,4 @@ jobs:
       export SWIFT_VERSION=4.2.4
       eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
       which swift
-      swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib
+      swift build -Xcc -I/usr/local/include -Xlinker -L/usr/local/lib --disable-sandbox
