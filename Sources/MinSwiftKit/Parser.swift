@@ -66,7 +66,7 @@ class Parser: SyntaxVisitor {
             // the pending operator take RHS as its LHS.
             let nextPrecedence = extractBinaryOperator(from: currentToken!)?.precedence ?? -1
             if true { // TODO
-                // Search next RHS from currentRHS
+                // Search next RHS from current RHS
                 // next precedence will be `operatorPrecedence + 1`
                 // TODO rhs = XXX
                 if rhs == nil {
