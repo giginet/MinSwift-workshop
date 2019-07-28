@@ -7,24 +7,26 @@ class Parser: SyntaxVisitorBase {
     private(set) var currentToken: TokenSyntax!
 
     // MARK: Practice 1
-
     override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
-        print("Parsing \(token.tokenKind)")
+        tokens.append(token)
+        return .visitChildren
     }
 
     @discardableResult
     func read() -> TokenSyntax {
-        fatalError("Not Implemented")
+        currentToken = tokens[index]
+        index += 1
+        return currentToken
     }
 
     func peek(_ n: Int = 0) -> TokenSyntax {
-        fatalError("Not Implemented")
+        return tokens[index + n]
     }
 
     // MARK: Practice 2
 
     private func extractNumberLiteral(from token: TokenSyntax) -> Double? {
-        fatalError("Not Implemented")
+        return Double(token.text)
     }
 
     func parseNumber() -> Node {
@@ -35,52 +37,73 @@ class Parser: SyntaxVisitorBase {
         return NumberNode(value: value)
     }
 
-    func parseIdentifierExpression() -> Node {
-        fatalError("Not Implemented")
+    func parseIdentifierExpression() -> Node {        
+        let node = VariableNode(identifier: currentToken.text)
+        read()
+        return node
     }
 
     // MARK: Practice 3
 
     func extractBinaryOperator(from token: TokenSyntax) -> BinaryExpressionNode.Operator? {
-        fatalError("Not Implemented")
+        switch token.text {
+        case "+":
+            return .addition
+        case "-":
+            return .subtraction
+        case "*":
+            return .multication
+        case "/":
+            return .division
+        default:
+            return nil
+        }
     }
 
-    private func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node?) -> Node? {
-        var currentLHS: Node? = lhs
+    private func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node) -> Node? {
+        var lhs = lhs
+        
         while true {
-            let binaryOperator = extractBinaryOperator(from: currentToken!)
-            let operatorPrecedence = binaryOperator?.precedence ?? -1
+            guard let binaryOperator = extractBinaryOperator(from: currentToken) else {
+                break
+            }
+            
+            let operatorPrecedence = binaryOperator.precedence
 
             // Compare between operatorPrecedence and expressionPrecedence
-            if true { // TODO
-                return currentLHS
+            if operatorPrecedence < expressionPrecedence {
+                break
             }
 
             read() // eat binary operator
-            var rhs = parsePrimary()
-            if rhs == nil {
+            
+            guard var rhs = parsePrimary() else {
                 return nil
             }
 
             // If binOperator binds less tightly with RHS than the operator after RHS, let
             // the pending operator take RHS as its LHS.
-            let nextPrecedence = extractBinaryOperator(from: currentToken!)?.precedence ?? -1
-            if true { // TODO
-                // Search next RHS from currentRHS
-                // next precedence will be `operatorPrecedence + 1`
-                // TODO rhs = XXX
-                if rhs == nil {
-                    return nil
+            if let nextOperator = extractBinaryOperator(from: currentToken!) {
+                if nextOperator.precedence > expressionPrecedence {
+                    // Search next RHS from currentRHS
+                    // next precedence will be `operatorPrecedence + 1`
+                    
+                    guard let newRHS = parseBinaryOperatorRHS(expressionPrecedence: operatorPrecedence + 1,
+                                                              lhs: rhs) else
+                    {
+                        return nil
+                    }
+                    
+                    rhs = newRHS
                 }
             }
 
-            guard let nonOptionalRHS = rhs else {
-                fatalError("rhs must be nonnull")
-            }
-
-            // TODO update current LHS
-            // currentLHS = XXX
+            lhs = BinaryExpressionNode(binaryOperator,
+                                       lhs: lhs,
+                                       rhs: rhs)
         }
+        
+        return lhs
     }
 
     // MARK: Practice 4
