@@ -4,13 +4,12 @@ import SwiftSyntax
 @testable import MinSwiftKit
 
 class ParserTestCase: XCTestCase {
-    let parser = Parser()
+    var parser = Parser()
 
     func load(_ content: String) {
         let url = makeTemporaryFile(content)
         defer { removeTempoaryFile(at: url) }
-        let sourceFile = try! SyntaxTreeParser.parse(url)
+        let sourceFile = try! SyntaxParser.parse(url)
         parser.visit(sourceFile)
-        parser.read()
     }
 }

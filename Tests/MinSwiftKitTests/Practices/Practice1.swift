@@ -13,8 +13,8 @@ func sayHello() {
     private func prepare() {
         let url = makeTemporaryFile(source)
         defer { removeTempoaryFile(at: url) }
-        let sourceFile = try! SyntaxTreeParser.parse(url)
-        parser.visit(sourceFile)
+        let sourceFile = try! SyntaxParser.parse(url)
+        sourceFile.walk(&parser)
     }
 
     // 1-1
