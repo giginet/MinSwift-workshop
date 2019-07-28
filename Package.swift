@@ -16,9 +16,9 @@ let package = Package(
         .package(url: "https://github.com/apple/swift-syntax.git",
                  .revision("swift-DEVELOPMENT-SNAPSHOT-2019-07-10-m")),
         .package(url: "https://github.com/llvm-swift/LLVMSwift.git",
-                 .revision("0.4.1")),
+                 .upToNextMinor(from: "0.4.0")),
         .package(url: "https://github.com/llvm-swift/FileCheck.git",
-                 from: "0.0.3")
+                 .upToNextMinor(from: "0.0.3"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

@@ -2,6 +2,16 @@
 
 LLVMのインストールには時間がかかります。事前にセットアップを行いましょう。
 
+## 0. 環境構築
+
+Homebrewがインストールされていない場合、[公式の手順](https://brew.sh/index_ja)に従ってインストールしてください。
+
+`pkg-config` がインストールされていない場合、 インストールしてください。
+
+```console
+$ brew install pkg-config`
+```
+
 ## 1. Xcode 10.3のインストール
 
 Mac App Storeからで大丈夫です
@@ -35,7 +45,7 @@ LLVMをインストールしたらパスを通してください。以後、パ�
 $ export PATH="$PATH:`brew --prefix llvm@7`/bin"
 ```
 
-インストールされたLLVMのバージョンが7.0.1であることを確認してください。
+インストールされたLLVMのバージョンが7系であることを確認してください。
 
 ```console
 $ lli --version
@@ -57,6 +67,20 @@ $ ./bootstrap
 ```
 
 この操作で`MinSwift.xcodeproj`が自動生成されます。
+
+<details><summary>`xcrun: error: unable to find utility "xctest", not a developer tool or in PATH` というエラーが出た場合は…</summary>
+<p>
+
+`xcode-select` でdeveloper directoryへのpathが通っていない可能性があります。
+
+```console
+$ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+$ xcode-select -p
+/Applications/Xcode.app/Contents/Developer
+```
+
+</p>
+</details>
 
 ## 5. CLIからのビルド
 
