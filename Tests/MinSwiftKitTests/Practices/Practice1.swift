@@ -13,8 +13,8 @@ func sayHello() {
     private func prepare() {
         let url = makeTemporaryFile(source)
         defer { removeTempoaryFile(at: url) }
-        let sourceFile = try! SyntaxTreeParser.parse(url)
-        parser.visit(sourceFile)
+        let sourceFile = try! SyntaxParser.parse(url)
+        sourceFile.walk(&parser)
     }
 
     // 1-1
@@ -30,7 +30,9 @@ func sayHello() {
             .leftBrace,
             .identifier("print"),
             .leftParen,
-            .stringLiteral("\"Welcome to Cookpad 🍳\""),
+            .stringQuote,
+            .stringSegment("Welcome to Cookpad 🍳"),
+            .stringQuote,
             .rightParen,
             .rightBrace,
             .eof])
@@ -60,7 +62,7 @@ func sayHello() {
         XCTAssertEqual(parser.peek().tokenKind, .identifier("sayHello"))
         XCTAssertEqual(parser.peek(1).tokenKind, .leftParen)
         XCTAssertEqual(parser.peek(2).tokenKind, .rightParen)
-        XCTAssertEqual(parser.peek(8).tokenKind, .rightBrace)
+        XCTAssertEqual(parser.peek(8).tokenKind, .stringQuote)
 
         XCTAssertEqual(parser.currentToken.tokenKind, .funcKeyword)
     }
