@@ -7,6 +7,7 @@ class Parser: SyntaxVisitorBase {
     private(set) var currentToken: TokenSyntax!
 
     // MARK: Practice 1
+
     override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
         print("Parsing \(token.tokenKind)")
         fatalError("Not Implemented")
@@ -14,19 +15,17 @@ class Parser: SyntaxVisitorBase {
 
     @discardableResult
     func read() -> TokenSyntax {
-        currentToken = tokens[index]
-        index += 1
-        return currentToken
+        fatalError("Not Implemented")
     }
 
     func peek(_ n: Int = 0) -> TokenSyntax {
-        return tokens[index + n]
+        fatalError("Not Implemented")
     }
 
     // MARK: Practice 2
 
     private func extractNumberLiteral(from token: TokenSyntax) -> Double? {
-        return Double(token.text)
+        fatalError("Not Implemented")
     }
 
     func parseNumber() -> Node {
@@ -37,47 +36,30 @@ class Parser: SyntaxVisitorBase {
         return NumberNode(value: value)
     }
 
-    func parseIdentifierExpression() -> Node {        
-        let node = VariableNode(identifier: currentToken.text)
-        read()
-        return node
+    func parseIdentifierExpression() -> Node {
+        fatalError("Not Implemented")
     }
 
     // MARK: Practice 3
 
     func extractBinaryOperator(from token: TokenSyntax) -> BinaryExpressionNode.Operator? {
-        switch token.text {
-        case "+":
-            return .addition
-        case "-":
-            return .subtraction
-        case "*":
-            return .multication
-        case "/":
-            return .division
-        default:
-            return nil
-        }
+        fatalError("Not Implemented")
     }
 
-    private func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node) -> Node? {
-        var lhs = lhs
-        
+    private func parseBinaryOperatorRHS(expressionPrecedence: Int, lhs: Node?) -> Node? {
+        var currentLHS: Node? = lhs
         while true {
-            guard let binaryOperator = extractBinaryOperator(from: currentToken) else {
-                break
-            }
-            
-            let operatorPrecedence = binaryOperator.precedence
+            let binaryOperator = extractBinaryOperator(from: currentToken!)
+            let operatorPrecedence = binaryOperator?.precedence ?? -1
 
             // Compare between operatorPrecedence and expressionPrecedence
-            if operatorPrecedence < expressionPrecedence {
-                break
+            if true { // TODO
+                return currentLHS
             }
 
             read() // eat binary operator
-            
-            guard var rhs = parsePrimary() else {
+            var rhs = parsePrimary()
+            if rhs == nil {
                 return nil
             }
 
@@ -93,12 +75,13 @@ class Parser: SyntaxVisitorBase {
                 }
             }
 
-            lhs = BinaryExpressionNode(binaryOperator,
-                                       lhs: lhs,
-                                       rhs: rhs)
+            guard let nonOptionalRHS = rhs else {
+                fatalError("rhs must be nonnull")
+            }
+
+            // TODO update current LHS
+            // currentLHS = XXX
         }
-        
-        return lhs
     }
 
     // MARK: Practice 4
