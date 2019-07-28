@@ -14,9 +14,9 @@
         "package": "LLVM",
         "repositoryURL": "https://github.com/llvm-swift/LLVMSwift.git",
         "state": {
-          "branch": "0.4.1",
+          "branch": null,
           "revision": "e4aa37b413a56d886b0fc5212afb0afe556a9010",
-          "version": null
+          "version": "0.4.1"
         }
       },
       {
