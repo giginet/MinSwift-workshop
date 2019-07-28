@@ -13,8 +13,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.40200.0")),
-        .package(url: "https://github.com/llvm-swift/LLVMSwift.git", .upToNextMajor(from: "0.4.0")),
-        .package(url: "https://github.com/llvm-swift/FileCheck.git", .upToNextMajor(from: "0.0.3"))
+        .package(url: "https://github.com/llvm-swift/LLVMSwift.git", .upToNextMinor(from: "0.4.0")),
+        .package(url: "https://github.com/llvm-swift/FileCheck.git", .upToNextMinor(from: "0.0.3"))
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
