@@ -11,9 +11,10 @@ Homebrewがインストールされていない場合、[公式の手順](https:
 $ brew install pkg-config`
 ```
 
-## 1. Xcode 10.3のインストール
+## 1. Xcodeのインストール
 
-Mac App Storeからで大丈夫です
+- Mojaveの場合: Mac App Store からインストールできる Xcode 10.3 で大丈夫です
+- Catalina betaの場合: Developer Center から Xcode 11 を利用する必要があります
 
 ## 2. Command Line Toolsのインストール
 
@@ -77,6 +78,8 @@ $ sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 $ xcode-select -p
 /Applications/Xcode.app/Contents/Developer
 ```
+
+Xcode betaのユーザーはpathを読み替えてください。
 
 </p>
 </details>
