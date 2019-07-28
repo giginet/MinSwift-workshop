@@ -7,8 +7,12 @@ fi
 INCLUDEDIR=`llvm-config --includedir`
 LIBDIR=`llvm-config --libdir`
 
+XCODE_ROOT_DIR=`xcode-select -p`
+RPATH=${XCODE_ROOT_DIR}/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/macosx
+
 echo "HEADER_SEARCH_PATHS = \$(inherited) $INCLUDEDIR" > Settings.xcconfig
 echo "LIBRARY_SEARCH_PATHS = \$(inherited) $LIBDIR" >> Settings.xcconfig
+echo 'LDFLAGS = $(inherited) -rpath ${RPATH}' >> Settings.xcconfig
 echo 'OTHER_LDFLAGS = $(inherited) -lLLVM' >> Settings.xcconfig
 
 swift package generate-xcodeproj --xcconfig-overrides Settings.xcconfig

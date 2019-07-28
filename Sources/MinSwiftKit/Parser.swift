@@ -8,8 +8,8 @@ class Parser: SyntaxVisitorBase {
 
     // MARK: Practice 1
     override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
-        tokens.append(token)
-        return .visitChildren
+        print("Parsing \(token.tokenKind)")
+        fatalError("Not Implemented")
     }
 
     @discardableResult
@@ -83,18 +83,13 @@ class Parser: SyntaxVisitorBase {
 
             // If binOperator binds less tightly with RHS than the operator after RHS, let
             // the pending operator take RHS as its LHS.
-            if let nextOperator = extractBinaryOperator(from: currentToken!) {
-                if nextOperator.precedence > expressionPrecedence {
-                    // Search next RHS from currentRHS
-                    // next precedence will be `operatorPrecedence + 1`
-                    
-                    guard let newRHS = parseBinaryOperatorRHS(expressionPrecedence: operatorPrecedence + 1,
-                                                              lhs: rhs) else
-                    {
-                        return nil
-                    }
-                    
-                    rhs = newRHS
+            let nextPrecedence = extractBinaryOperator(from: currentToken!)?.precedence ?? -1
+            if true { // TODO
+                // Search next RHS from current RHS
+                // next precedence will be `operatorPrecedence + 1`
+                // TODO rhs = XXX
+                if rhs == nil {
+                    return nil
                 }
             }
 
