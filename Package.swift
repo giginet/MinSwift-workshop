@@ -1,10 +1,10 @@
-// swift-tools-version:4.2
-// The swift-tools-version declares the minimum version of Swift required to build this package.
+// swift-tools-version:5.1
 
 import PackageDescription
 
 let package = Package(
     name: "MinSwift",
+    platforms: [.macOS(.v10_14)],
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
@@ -12,9 +12,14 @@ let package = Package(
             targets: ["MinSwiftKit"])
     ],
     dependencies: [
-        .package(url: "https://github.com/apple/swift-syntax.git", .exact("0.40200.0")),
-        .package(url: "https://github.com/llvm-swift/LLVMSwift.git", .upToNextMinor(from: "0.4.0")),
-        .package(url: "https://github.com/llvm-swift/FileCheck.git", .upToNextMinor(from: "0.0.3"))
+        .package(url: "https://github.com/apple/swift-syntax.git",
+                 .revision("swift-DEVELOPMENT-SNAPSHOT-2019-07-10-m")),
+        .package(url: "https://github.com/llvm-swift/LLVMSwift.git",
+                 .upToNextMinor(from: "0.6.0")),
+        
+        // LLVMSwiftと同じ記述にする
+        .package(url: "https://github.com/llvm-swift/FileCheck.git",
+                 from: "0.0.3")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

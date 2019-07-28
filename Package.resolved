@@ -15,17 +15,17 @@
         "repositoryURL": "https://github.com/llvm-swift/LLVMSwift.git",
         "state": {
           "branch": null,
-          "revision": "e4aa37b413a56d886b0fc5212afb0afe556a9010",
-          "version": "0.4.1"
+          "revision": "b876a1b13d7679a8d81fcd4288e5ab1ff631a011",
+          "version": "0.6.0"
         }
       },
       {
         "package": "SwiftSyntax",
         "repositoryURL": "https://github.com/apple/swift-syntax.git",
         "state": {
-          "branch": null,
-          "revision": "f20c0bcbfb4b07e107c9851350217cb2217f0cb4",
-          "version": "0.40200.0"
+          "branch": "swift-DEVELOPMENT-SNAPSHOT-2019-07-10-m",
+          "revision": "dd07c607c04a3adb61e6f973b3db88a7062c9f3c",
+          "version": null
         }
       }
     ]
