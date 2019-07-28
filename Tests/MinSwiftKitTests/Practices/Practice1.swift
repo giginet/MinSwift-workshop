@@ -30,7 +30,9 @@ func sayHello() {
             .leftBrace,
             .identifier("print"),
             .leftParen,
-            .stringLiteral("\"Welcome to Cookpad 🍳\""),
+            .stringQuote,
+            .stringSegment("Welcome to Cookpad 🍳"),
+            .stringQuote,
             .rightParen,
             .rightBrace,
             .eof])
