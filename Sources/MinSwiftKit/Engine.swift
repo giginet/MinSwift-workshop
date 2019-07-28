@@ -8,7 +8,7 @@ public final class Engine {
     public init() { }
 
     public func load(from url: URL) throws {
-        let sourceFile = try SyntaxTreeParser.parse(url)
+        let sourceFile = try SyntaxParser.parse(url)
         let parser = Parser()
         parser.visit(sourceFile)
         let nodes = parser.parse()

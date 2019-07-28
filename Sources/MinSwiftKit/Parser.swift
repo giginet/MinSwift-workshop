@@ -1,14 +1,14 @@
 import Foundation
 import SwiftSyntax
 
-class Parser: SyntaxVisitor {
+class Parser: SyntaxVisitorBase {
     private(set) var tokens: [TokenSyntax] = []
     private var index = 0
     private(set) var currentToken: TokenSyntax!
 
     // MARK: Practice 1
 
-    override func visit(_ token: TokenSyntax) {
+    override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
         print("Parsing \(token.tokenKind)")
     }
 
