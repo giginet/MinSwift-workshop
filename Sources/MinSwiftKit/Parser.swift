@@ -10,6 +10,7 @@ class Parser: SyntaxVisitorBase {
 
     override func visit(_ token: TokenSyntax) -> SyntaxVisitorContinueKind {
         print("Parsing \(token.tokenKind)")
+        fatalError("Not Implemented")
     }
 
     @discardableResult
