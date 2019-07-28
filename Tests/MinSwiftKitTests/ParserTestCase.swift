@@ -10,6 +10,7 @@ class ParserTestCase: XCTestCase {
         let url = makeTemporaryFile(content)
         defer { removeTempoaryFile(at: url) }
         let sourceFile = try! SyntaxParser.parse(url)
-        parser.visit(sourceFile)
+        sourceFile.walk(&parser)
+        parser.read()
     }
 }
